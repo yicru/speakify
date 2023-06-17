@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils'
 import { Providers } from '@/providers'
 import { Inter } from 'next/font/google'
 
@@ -16,9 +17,11 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <Providers>{children}</Providers>
+    <html className={'h-full'} lang="en">
+      <body className={cn(inter.className, 'h-full')}>
+        <Providers>
+          <div className={'h-full w-full max-w-lg mx-auto p-8'}>{children}</div>
+        </Providers>
       </body>
     </html>
   )
