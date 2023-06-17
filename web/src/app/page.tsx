@@ -1,5 +1,6 @@
 'use client'
 
+import { ParseHtmlFromUrlForm } from '@/features/html/ParseHtmlFromUrlForm'
 import { graphql } from '@/lib/gql'
 import { useQuery } from 'urql'
 
@@ -14,7 +15,7 @@ export default function Home() {
 
   return (
     <main>
-      <p>{data?.greetings}</p>
+      <ParseHtmlFromUrlForm />
     </main>
   )
 }

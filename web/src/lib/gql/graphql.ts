@@ -29,6 +29,15 @@ export type Scalars = {
   Float: { input: number; output: number }
 }
 
+export type Mutation = {
+  __typename?: 'Mutation'
+  parseHtmlFromUrl?: Maybe<Scalars['String']['output']>
+}
+
+export type MutationParseHtmlFromUrlArgs = {
+  url: Scalars['String']['input']
+}
+
 export type Query = {
   __typename?: 'Query'
   greetings?: Maybe<Scalars['String']['output']>
@@ -39,6 +48,15 @@ export type HomePageQueryQueryVariables = Exact<{ [key: string]: never }>
 export type HomePageQueryQuery = {
   __typename?: 'Query'
   greetings?: string | null
+}
+
+export type ParseHtmlFromUrlMutationMutationVariables = Exact<{
+  url: Scalars['String']['input']
+}>
+
+export type ParseHtmlFromUrlMutationMutation = {
+  __typename?: 'Mutation'
+  parseHtmlFromUrl?: string | null
 }
 
 export const HomePageQueryDocument = {
@@ -57,3 +75,48 @@ export const HomePageQueryDocument = {
     },
   ],
 } as unknown as DocumentNode<HomePageQueryQuery, HomePageQueryQueryVariables>
+export const ParseHtmlFromUrlMutationDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'ParseHtmlFromUrlMutation' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'url' } },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'parseHtmlFromUrl' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'url' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'url' },
+                },
+              },
+            ],
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  ParseHtmlFromUrlMutationMutation,
+  ParseHtmlFromUrlMutationMutationVariables
+>

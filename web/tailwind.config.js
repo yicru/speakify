@@ -4,6 +4,7 @@ module.exports = {
     './src/pages/**/*.{ts,tsx}',
     './src/components/**/*.{ts,tsx}',
     './src/app/**/*.{ts,tsx}',
+    './src/features/**/*.{ts,tsx}',
   ],
   darkMode: ['class'],
   plugins: [require('tailwindcss-animate')],
