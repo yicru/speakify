@@ -1,11 +1,10 @@
-'use client'
-
-import { ParseHtmlFromUrlForm } from '@/client/features/html/components/ParseHtmlFromUrlForm'
+import { AuthForm } from '@/client/features/auth/components/AuthForm'
 
 export default function Home() {
   return (
-    <main>
-      <ParseHtmlFromUrlForm />
-    </main>
+    <div className={'space-y-4'}>
+      <h1 className={'font-semibold text-gray-600'}>Speakify</h1>
+      <AuthForm />
+    </div>
   )
 }
