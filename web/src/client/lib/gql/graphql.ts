@@ -45,7 +45,7 @@ export type MutationTextToSpeechArgs = {
 
 export type Query = {
   __typename?: 'Query'
-  greetings?: Maybe<Scalars['String']['output']>
+  greetings: Scalars['String']['output']
 }
 
 export type ParseHtmlFromUrlForm_ParseHtmlFromUrlMutationVariables = Exact<{
