@@ -13,10 +13,10 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-  '\n  query HomePageQuery {\n    greetings\n  }\n':
-    types.HomePageQueryDocument,
-  '\n  mutation ParseHtmlFromUrlMutation($url: String!) {\n    parseHtmlFromUrl(url: $url)\n  }\n':
-    types.ParseHtmlFromUrlMutationDocument,
+  '\n  mutation ParseHtmlFromUrlForm_parseHtmlFromUrl($url: String!) {\n    parseHtmlFromUrl(url: $url)\n  }\n':
+    types.ParseHtmlFromUrlForm_ParseHtmlFromUrlDocument,
+  '\n  mutation TextToSpeechButton_textToSpeech($text: String!) {\n    textToSpeech(text: $text)\n  }\n':
+    types.TextToSpeechButton_TextToSpeechDocument,
 }
 
 /**
@@ -37,14 +37,14 @@ export function graphql(source: string): unknown
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  query HomePageQuery {\n    greetings\n  }\n'
-): (typeof documents)['\n  query HomePageQuery {\n    greetings\n  }\n']
+  source: '\n  mutation ParseHtmlFromUrlForm_parseHtmlFromUrl($url: String!) {\n    parseHtmlFromUrl(url: $url)\n  }\n'
+): (typeof documents)['\n  mutation ParseHtmlFromUrlForm_parseHtmlFromUrl($url: String!) {\n    parseHtmlFromUrl(url: $url)\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  mutation ParseHtmlFromUrlMutation($url: String!) {\n    parseHtmlFromUrl(url: $url)\n  }\n'
-): (typeof documents)['\n  mutation ParseHtmlFromUrlMutation($url: String!) {\n    parseHtmlFromUrl(url: $url)\n  }\n']
+  source: '\n  mutation TextToSpeechButton_textToSpeech($text: String!) {\n    textToSpeech(text: $text)\n  }\n'
+): (typeof documents)['\n  mutation TextToSpeechButton_textToSpeech($text: String!) {\n    textToSpeech(text: $text)\n  }\n']
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {}

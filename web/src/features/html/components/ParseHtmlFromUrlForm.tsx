@@ -9,14 +9,16 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { TextToSpeechButton } from '@/features/text-to-speech/components/TextToSpeechButton'
 import { graphql } from '@/lib/gql'
+import { toast } from '@/lib/sonner'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { useMutation } from 'urql'
 import * as z from 'zod'
 
 const ParseHtmlFromUrlMutation = graphql(/* GraphQL */ `
-  mutation ParseHtmlFromUrlMutation($url: String!) {
+  mutation ParseHtmlFromUrlForm_parseHtmlFromUrl($url: String!) {
     parseHtmlFromUrl(url: $url)
   }
 `)
@@ -33,18 +35,26 @@ export const ParseHtmlFromUrlForm = () => {
     resolver: zodResolver(formSchema),
   })
 
-  const [{ data, fetching }, execute] = useMutation(ParseHtmlFromUrlMutation)
+  const [{ data, error, fetching }, execute] = useMutation(
+    ParseHtmlFromUrlMutation
+  )
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    await execute({
+    const { error } = await execute({
       url: values.url,
     })
+
+    if (error) {
+      toast.error('エラーが発生しました', {
+        description: error.message,
+      })
+    }
   }
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <div className={'flex space-x-4 items-center'}>
+        <div className={'flex space-x-4 items-start'}>
           <FormField
             render={({ field }) => (
               <FormItem className={'flex-1'}>
@@ -57,18 +67,41 @@ export const ParseHtmlFromUrlForm = () => {
             control={form.control}
             name="url"
           />
-          <Button disabled={fetching} size={'sm'} type="submit">
+          <Button isLoading={fetching} type="submit">
             Submit
           </Button>
         </div>
       </form>
 
-      {data && (
+      {(data || error) && (
         <div className={'mt-4 space-y-2 bg-gray-50 p-4 rounded'}>
-          <p className={'font-medium text-gray-900'}>Result</p>
-          <p className={'text-gray-600 text-xs whitespace-pre-wrap break-all'}>
-            {data.parseHtmlFromUrl}
-          </p>
+          <div className={'flex justify-between'}>
+            <p className={'font-medium text-gray-900'}>Result</p>
+            {data && (
+              <TextToSpeechButton
+                render={({ fetching, onClick }) => (
+                  <Button isLoading={fetching} onClick={onClick} size={'xs'}>
+                    Speakify
+                  </Button>
+                )}
+                text={data.parseHtmlFromUrl}
+              />
+            )}
+          </div>
+
+          {data && (
+            <p
+              className={'text-gray-600 text-xs whitespace-pre-wrap break-all'}
+            >
+              {data.parseHtmlFromUrl}
+            </p>
+          )}
+
+          {error && (
+            <p className={'text-red-600 text-xs whitespace-pre-wrap break-all'}>
+              {error.message}
+            </p>
+          )}
         </div>
       )}
     </Form>

@@ -1,3 +1,4 @@
+import { Toaster } from '@/lib/sonner'
 import { cn } from '@/lib/utils'
 import { Providers } from '@/providers'
 import { Inter } from 'next/font/google'
@@ -23,6 +24,7 @@ export default function RootLayout({
           <div className={'h-full w-full max-w-lg mx-auto p-8'}>{children}</div>
         </Providers>
       </body>
+      <Toaster />
     </html>
   )
 }

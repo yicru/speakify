@@ -1,3 +1,4 @@
+import { textToSpeechClient } from '@/server/lib/google'
 import { createSchema, createYoga } from 'graphql-yoga'
 import { convert } from 'html-to-text'
 import { ofetch } from 'ofetch'
@@ -14,10 +15,20 @@ const { handleRequest } = createYoga({
       Mutation: {
         parseHtmlFromUrl: async (_, { url }) => {
           const html = await ofetch(url)
-
-          return convert(html, {
-            wordwrap: false,
+          return convert(html, { wordwrap: false })
+        },
+        textToSpeech: async (_, { text }) => {
+          const [response] = await textToSpeechClient.synthesizeSpeech({
+            audioConfig: { audioEncoding: 'MP3' },
+            input: { text: text },
+            voice: { languageCode: 'ja-JP', ssmlGender: 'NEUTRAL' },
           })
+
+          if (!(response.audioContent instanceof Uint8Array)) {
+            throw new Error('audioContent is not a Uint8Array')
+          }
+
+          return Buffer.from(response.audioContent).toString('base64')
         },
       },
       Query: {
@@ -31,7 +42,8 @@ const { handleRequest } = createYoga({
       }
 
       type Mutation {
-        parseHtmlFromUrl(url: String!): String
+        parseHtmlFromUrl(url: String!): String!
+        textToSpeech(text: String!): String!
       }
     `,
   }),

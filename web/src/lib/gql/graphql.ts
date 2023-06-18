@@ -31,11 +31,16 @@ export type Scalars = {
 
 export type Mutation = {
   __typename?: 'Mutation'
-  parseHtmlFromUrl?: Maybe<Scalars['String']['output']>
+  parseHtmlFromUrl: Scalars['String']['output']
+  textToSpeech: Scalars['String']['output']
 }
 
 export type MutationParseHtmlFromUrlArgs = {
   url: Scalars['String']['input']
+}
+
+export type MutationTextToSpeechArgs = {
+  text: Scalars['String']['input']
 }
 
 export type Query = {
@@ -43,45 +48,31 @@ export type Query = {
   greetings?: Maybe<Scalars['String']['output']>
 }
 
-export type HomePageQueryQueryVariables = Exact<{ [key: string]: never }>
-
-export type HomePageQueryQuery = {
-  __typename?: 'Query'
-  greetings?: string | null
-}
-
-export type ParseHtmlFromUrlMutationMutationVariables = Exact<{
+export type ParseHtmlFromUrlForm_ParseHtmlFromUrlMutationVariables = Exact<{
   url: Scalars['String']['input']
 }>
 
-export type ParseHtmlFromUrlMutationMutation = {
+export type ParseHtmlFromUrlForm_ParseHtmlFromUrlMutation = {
   __typename?: 'Mutation'
-  parseHtmlFromUrl?: string | null
+  parseHtmlFromUrl: string
 }
 
-export const HomePageQueryDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'HomePageQuery' },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'greetings' } },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<HomePageQueryQuery, HomePageQueryQueryVariables>
-export const ParseHtmlFromUrlMutationDocument = {
+export type TextToSpeechButton_TextToSpeechMutationVariables = Exact<{
+  text: Scalars['String']['input']
+}>
+
+export type TextToSpeechButton_TextToSpeechMutation = {
+  __typename?: 'Mutation'
+  textToSpeech: string
+}
+
+export const ParseHtmlFromUrlForm_ParseHtmlFromUrlDocument = {
   kind: 'Document',
   definitions: [
     {
       kind: 'OperationDefinition',
       operation: 'mutation',
-      name: { kind: 'Name', value: 'ParseHtmlFromUrlMutation' },
+      name: { kind: 'Name', value: 'ParseHtmlFromUrlForm_parseHtmlFromUrl' },
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
@@ -117,6 +108,51 @@ export const ParseHtmlFromUrlMutationDocument = {
     },
   ],
 } as unknown as DocumentNode<
-  ParseHtmlFromUrlMutationMutation,
-  ParseHtmlFromUrlMutationMutationVariables
+  ParseHtmlFromUrlForm_ParseHtmlFromUrlMutation,
+  ParseHtmlFromUrlForm_ParseHtmlFromUrlMutationVariables
+>
+export const TextToSpeechButton_TextToSpeechDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'TextToSpeechButton_textToSpeech' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'text' } },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'textToSpeech' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'text' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'text' },
+                },
+              },
+            ],
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  TextToSpeechButton_TextToSpeechMutation,
+  TextToSpeechButton_TextToSpeechMutationVariables
 >
