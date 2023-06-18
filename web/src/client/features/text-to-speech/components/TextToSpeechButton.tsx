@@ -1,5 +1,5 @@
-import { graphql } from '@/lib/gql'
-import { toast } from '@/lib/sonner'
+import { graphql } from '@/client/lib/gql'
+import { toast } from '@/client/lib/sonner'
 import { ReactNode } from 'react'
 import { useMutation } from 'urql'
 

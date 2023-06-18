@@ -1,17 +1,17 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
+import { Button } from '@/client/components/ui/button'
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { TextToSpeechButton } from '@/features/text-to-speech/components/TextToSpeechButton'
-import { graphql } from '@/lib/gql'
-import { toast } from '@/lib/sonner'
+} from '@/client/components/ui/form'
+import { Input } from '@/client/components/ui/input'
+import { TextToSpeechButton } from '@/client/features/text-to-speech/components/TextToSpeechButton'
+import { graphql } from '@/client/lib/gql'
+import { toast } from '@/client/lib/sonner'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { useMutation } from 'urql'

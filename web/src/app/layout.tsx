@@ -1,6 +1,6 @@
-import { Toaster } from '@/lib/sonner'
-import { cn } from '@/lib/utils'
-import { Providers } from '@/providers'
+import { Toaster } from '@/client/lib/sonner'
+import { cn } from '@/client/lib/utils'
+import { Providers } from '@/client/providers'
 import { Inter } from 'next/font/google'
 
 import './globals.css'

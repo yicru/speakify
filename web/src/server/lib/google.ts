@@ -1,4 +1,4 @@
-import { env } from '@/lib/env'
+import { env } from '@/shared/lib/env'
 import { TextToSpeechClient } from '@google-cloud/text-to-speech'
 
 const credentials = JSON.parse(
