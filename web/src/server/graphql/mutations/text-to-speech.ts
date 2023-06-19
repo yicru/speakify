@@ -1,5 +1,6 @@
 import { builder } from '@/server/graphql/builder'
-import { textToSpeechClient } from '@/server/lib/google'
+import { pollyClient } from '@/server/lib/polly'
+import { SynthesizeSpeechCommand } from '@aws-sdk/client-polly'
 
 builder.mutationField('textToSpeech', (t) =>
   t.string({
@@ -7,17 +8,20 @@ builder.mutationField('textToSpeech', (t) =>
       text: t.arg.string({ required: true }),
     },
     resolve: async (parent, { text }) => {
-      const [response] = await textToSpeechClient.synthesizeSpeech({
-        audioConfig: { audioEncoding: 'MP3' },
-        input: { text: text },
-        voice: { languageCode: 'ja-JP', ssmlGender: 'NEUTRAL' },
+      const command = new SynthesizeSpeechCommand({
+        OutputFormat: 'mp3',
+        Text: text,
+        VoiceId: 'Mizuki',
       })
 
-      if (!(response.audioContent instanceof Uint8Array)) {
-        throw new Error('audioContent is not a Uint8Array')
+      const result = await pollyClient.send(command)
+      const base64String = await result.AudioStream?.transformToString('base64')
+
+      if (!base64String) {
+        throw new Error('Failed to convert audio stream')
       }
 
-      return Buffer.from(response.audioContent).toString('base64')
+      return base64String
     },
   })
 )
