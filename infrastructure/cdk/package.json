@@ -8,7 +8,14 @@
     "build": "tsc",
     "watch": "tsc -w",
     "test": "jest",
-    "cdk": "cdk"
+    "cdk": "cdk",
+    "lint": "run-s lint:* -c",
+    "lint:eslint": "eslint --ext .ts --max-warnings 0 .",
+    "lint:prettier": "prettier --check .",
+    "lint:tsc": "tsc --pretty --noEmit",
+    "format": "run-s format:* -c",
+    "format:eslint": "npm run lint:eslint -- --fix",
+    "format:prettier": "npm run lint:prettier -- --write"
   },
   "devDependencies": {
     "@types/jest": "^29.5.1",
