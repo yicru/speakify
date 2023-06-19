@@ -1,16 +1,21 @@
 import * as cdk from 'aws-cdk-lib'
+import { RemovalPolicy } from 'aws-cdk-lib'
+import * as iam from 'aws-cdk-lib/aws-iam'
+import * as s3 from 'aws-cdk-lib/aws-s3'
 import { Construct } from 'constructs'
-// import * as sqs from 'aws-cdk-lib/aws-sqs';
 
 export class SpeakifyStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props)
 
-    // The code that defines your stack goes here
+    new iam.User(this, 'User', {
+      managedPolicies: [iam.ManagedPolicy.fromAwsManagedPolicyName('AmazonPollyFullAccess')],
+      userName: 'speakify-dev',
+    })
 
-    // example resource
-    // const queue = new sqs.Queue(this, 'SpeakifyQueue', {
-    //   visibilityTimeout: cdk.Duration.seconds(300)
-    // });
+    new s3.Bucket(this, 'Bucket', {
+      bucketName: 'speakify-dev',
+      removalPolicy: RemovalPolicy.DESTROY,
+    })
   }
 }
