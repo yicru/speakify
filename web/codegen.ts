@@ -8,7 +8,7 @@ const config: CodegenConfig = {
     },
   },
   hooks: {
-    afterAllFileWrite: ['eslint --fix && prettier --write'],
+    afterAllFileWrite: ['eslint --fix', 'prettier --write'],
   },
   ignoreNoDocuments: true,
   schema: 'http://localhost:3000/api/graphql',
