@@ -1,15 +1,15 @@
 # This file was generated. Do not edit manually.
 
 schema {
-    query: Query
-    mutation: Mutation
+  query: Query
+  mutation: Mutation
 }
 
 type Mutation {
-    parseHtmlFromUrl(url: String!): String!
-    textToSpeech(text: String!): String!
+  parseHtmlFromUrl(url: String!): String!
+  textToSpeech(text: String!): String!
 }
 
 type Query {
-    greetings: String!
+  greetings: String!
 }
