@@ -12,6 +12,7 @@ import { Input } from '@/client/components/ui/input'
 import { TextToSpeechButton } from '@/client/features/text-to-speech/components/TextToSpeechButton'
 import { graphql } from '@/client/lib/gql'
 import { toast } from '@/client/lib/sonner'
+import { cn } from '@/client/lib/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { useMutation } from 'urql'
@@ -74,9 +75,20 @@ export const ParseHtmlFromUrlForm = () => {
       </form>
 
       {(data || error) && (
-        <div className={'mt-4 space-y-2 bg-gray-50 p-4 rounded'}>
-          <div className={'flex justify-between'}>
+        <div className={'mt-4 bg-gray-50 p-4 rounded'}>
+          <div className={'flex items-center space-x-2'}>
             <p className={'font-medium text-gray-900'}>Result</p>
+            <div className={'flex-1'} />
+            <p
+              className={cn(
+                'text-xs',
+                data && new Blob([data?.parseHtmlFromUrl]).size < 3000
+                  ? 'text-gray-500'
+                  : 'text-red-500'
+              )}
+            >
+              {data ? new Blob([data?.parseHtmlFromUrl]).size : '-'} / 3000
+            </p>
             {data && (
               <TextToSpeechButton
                 render={({ fetching, onClick }) => (

@@ -1,6 +1,6 @@
 import { graphql } from '@/client/lib/gql'
 import { toast } from '@/client/lib/sonner'
-import { ReactNode } from 'react'
+import { ReactElement } from 'react'
 import { useMutation } from 'urql'
 
 const TextToSpeechMutation = graphql(/* GraphQL */ `
@@ -10,7 +10,7 @@ const TextToSpeechMutation = graphql(/* GraphQL */ `
 `)
 
 type Props = {
-  render: (params: { fetching: boolean; onClick: () => void }) => ReactNode
+  render: (params: { fetching: boolean; onClick: () => void }) => ReactElement
   text: string
 }
 
