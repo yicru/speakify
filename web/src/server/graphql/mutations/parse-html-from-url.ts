@@ -9,7 +9,18 @@ builder.mutationField('parseHtmlFromUrl', (t) =>
     },
     resolve: async (parent, { url }) => {
       const html = await ofetch(url)
-      return convert(html, { wordwrap: false })
+      return convert(html, {
+        selectors: [
+          {
+            options: { ignoreHref: true },
+            selector: 'a',
+          },
+          {
+            format: 'skip',
+            selector: 'img',
+          },
+        ],
+      })
     },
   })
 )
