@@ -32,7 +32,7 @@ export type Scalars = {
 export type Mutation = {
   __typename?: 'Mutation'
   parseHtmlFromUrl: Scalars['String']['output']
-  textToSpeech: Scalars['String']['output']
+  textToSpeech?: Maybe<Scalars['String']['output']>
 }
 
 export type MutationParseHtmlFromUrlArgs = {
@@ -63,7 +63,7 @@ export type TextToSpeechButton_TextToSpeechMutationVariables = Exact<{
 
 export type TextToSpeechButton_TextToSpeechMutation = {
   __typename?: 'Mutation'
-  textToSpeech: string
+  textToSpeech?: string | null
 }
 
 export const ParseHtmlFromUrlForm_ParseHtmlFromUrlDocument = {

@@ -8,14 +8,16 @@ export class SpeakifyStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props)
 
-    new iam.User(this, 'User', {
+    const bucket = new s3.Bucket(this, 'Bucket', {
+      bucketName: 'speakify-dev',
+      removalPolicy: RemovalPolicy.DESTROY,
+    })
+
+    const user = new iam.User(this, 'User', {
       managedPolicies: [iam.ManagedPolicy.fromAwsManagedPolicyName('AmazonPollyFullAccess')],
       userName: 'speakify-dev',
     })
 
-    new s3.Bucket(this, 'Bucket', {
-      bucketName: 'speakify-dev',
-      removalPolicy: RemovalPolicy.DESTROY,
-    })
+    bucket.grantWrite(user)
   }
 }

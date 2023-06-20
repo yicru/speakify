@@ -12,6 +12,7 @@ export const env = createEnv({
     DATABASE_URL: z.string(),
     AWS_ACCESS_KEY_ID: z.string(),
     AWS_SECRET_ACCESS_KEY: z.string(),
+    AWS_POLLY_OUTPUT_BUCKET: z.string(),
   },
   runtimeEnv: {
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
@@ -20,5 +21,6 @@ export const env = createEnv({
     DATABASE_URL: process.env.DATABASE_URL,
     AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID,
     AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY,
+    AWS_POLLY_OUTPUT_BUCKET: process.env.AWS_POLLY_OUTPUT_BUCKET,
   },
 })

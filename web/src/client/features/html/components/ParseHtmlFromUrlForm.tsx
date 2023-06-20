@@ -1,5 +1,3 @@
-'use client'
-
 import { Button } from '@/client/components/ui/button'
 import {
   Form,
@@ -9,7 +7,7 @@ import {
   FormMessage,
 } from '@/client/components/ui/form'
 import { Input } from '@/client/components/ui/input'
-import { TextToSpeechButton } from '@/client/features/text-to-speech/components/TextToSpeechButton'
+import { ScrollArea } from '@/client/components/ui/scroll-area'
 import { graphql } from '@/client/lib/gql'
 import { toast } from '@/client/lib/sonner'
 import { cn } from '@/client/lib/utils'
@@ -28,7 +26,11 @@ const formSchema = z.object({
   url: z.string().url(),
 })
 
-export const ParseHtmlFromUrlForm = () => {
+type Props = {
+  onComplete: (text: string) => void
+}
+
+export const ParseHtmlFromUrlForm = ({ onComplete }: Props) => {
   const form = useForm<z.infer<typeof formSchema>>({
     defaultValues: {
       url: '',
@@ -41,7 +43,7 @@ export const ParseHtmlFromUrlForm = () => {
   )
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const { error } = await execute({
+    const { data, error } = await execute({
       url: values.url,
     })
 
@@ -49,6 +51,10 @@ export const ParseHtmlFromUrlForm = () => {
       toast.error('エラーが発生しました', {
         description: error.message,
       })
+    }
+
+    if (data) {
+      onComplete(data.parseHtmlFromUrl)
     }
   }
 
@@ -74,46 +80,23 @@ export const ParseHtmlFromUrlForm = () => {
         </div>
       </form>
 
-      {(data || error) && (
+      {data && (
         <div className={'mt-4 bg-gray-50 p-4 rounded'}>
           <div className={'flex items-center space-x-2'}>
-            <p className={'font-medium text-gray-900'}>Result</p>
+            <p className={'font-medium text-gray-900'}>記事本文</p>
             <div className={'flex-1'} />
-            <p
-              className={cn(
-                'text-xs',
-                data && new Blob([data?.parseHtmlFromUrl]).size < 3000
-                  ? 'text-gray-500'
-                  : 'text-red-500'
-              )}
-            >
-              {data ? new Blob([data?.parseHtmlFromUrl]).size : '-'} / 3000
+            <p className={cn('text-xs text-gray-700 font-medium')}>
+              {data?.parseHtmlFromUrl.length}文字
             </p>
-            {data && (
-              <TextToSpeechButton
-                render={({ fetching, onClick }) => (
-                  <Button isLoading={fetching} onClick={onClick} size={'xs'}>
-                    Speakify
-                  </Button>
-                )}
-                text={data.parseHtmlFromUrl}
-              />
-            )}
           </div>
 
-          {data && (
+          <ScrollArea className={'h-80 mt-4'}>
             <p
               className={'text-gray-600 text-xs whitespace-pre-wrap break-all'}
             >
               {data.parseHtmlFromUrl}
             </p>
-          )}
-
-          {error && (
-            <p className={'text-red-600 text-xs whitespace-pre-wrap break-all'}>
-              {error.message}
-            </p>
-          )}
+          </ScrollArea>
         </div>
       )}
     </Form>

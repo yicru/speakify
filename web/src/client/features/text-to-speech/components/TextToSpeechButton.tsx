@@ -10,11 +10,12 @@ const TextToSpeechMutation = graphql(/* GraphQL */ `
 `)
 
 type Props = {
+  onComplete: (url: string) => void
   render: (params: { fetching: boolean; onClick: () => void }) => ReactElement
   text: string
 }
 
-export const TextToSpeechButton = ({ render, text }: Props) => {
+export const TextToSpeechButton = ({ onComplete, render, text }: Props) => {
   const [{ fetching }, execute] = useMutation(TextToSpeechMutation)
 
   const handleOnClick = async () => {
@@ -26,10 +27,8 @@ export const TextToSpeechButton = ({ render, text }: Props) => {
       })
     }
 
-    const base64 = data?.textToSpeech
-    if (base64) {
-      const audio = new Audio(`data:audio/mp3;base64,${base64}`)
-      await audio.play()
+    if (data?.textToSpeech) {
+      onComplete(data.textToSpeech)
     }
   }
 
