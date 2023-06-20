@@ -40,12 +40,18 @@ export type MutationParseHtmlFromUrlArgs = {
 }
 
 export type MutationTextToSpeechArgs = {
+  speaker: Speaker
   text: Scalars['String']['input']
 }
 
 export type Query = {
   __typename?: 'Query'
   greetings: Scalars['String']['output']
+}
+
+export enum Speaker {
+  Kazuha = 'Kazuha',
+  Mizuki = 'Mizuki',
 }
 
 export type ParseHtmlFromUrlForm_ParseHtmlFromUrlMutationVariables = Exact<{
@@ -58,6 +64,7 @@ export type ParseHtmlFromUrlForm_ParseHtmlFromUrlMutation = {
 }
 
 export type TextToSpeechButton_TextToSpeechMutationVariables = Exact<{
+  speaker: Speaker
   text: Scalars['String']['input']
 }>
 
@@ -121,6 +128,20 @@ export const TextToSpeechButton_TextToSpeechDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'speaker' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'Speaker' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'text' } },
           type: {
             kind: 'NonNullType',
@@ -138,6 +159,14 @@ export const TextToSpeechButton_TextToSpeechDocument = {
             kind: 'Field',
             name: { kind: 'Name', value: 'textToSpeech' },
             arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'speaker' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'speaker' },
+                },
+              },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'text' },

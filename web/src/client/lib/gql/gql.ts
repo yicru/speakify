@@ -15,7 +15,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
 const documents = {
   '\n  mutation ParseHtmlFromUrlForm_parseHtmlFromUrl($url: String!) {\n    parseHtmlFromUrl(url: $url)\n  }\n':
     types.ParseHtmlFromUrlForm_ParseHtmlFromUrlDocument,
-  '\n  mutation TextToSpeechButton_textToSpeech($text: String!) {\n    textToSpeech(text: $text)\n  }\n':
+  '\n  mutation TextToSpeechButton_textToSpeech($speaker: Speaker!, $text: String!) {\n    textToSpeech(speaker: $speaker, text: $text)\n  }\n':
     types.TextToSpeechButton_TextToSpeechDocument,
 }
 
@@ -43,8 +43,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  mutation TextToSpeechButton_textToSpeech($text: String!) {\n    textToSpeech(text: $text)\n  }\n'
-): (typeof documents)['\n  mutation TextToSpeechButton_textToSpeech($text: String!) {\n    textToSpeech(text: $text)\n  }\n']
+  source: '\n  mutation TextToSpeechButton_textToSpeech($speaker: Speaker!, $text: String!) {\n    textToSpeech(speaker: $speaker, text: $text)\n  }\n'
+): (typeof documents)['\n  mutation TextToSpeechButton_textToSpeech($speaker: Speaker!, $text: String!) {\n    textToSpeech(speaker: $speaker, text: $text)\n  }\n']
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {}
