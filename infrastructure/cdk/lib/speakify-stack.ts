@@ -9,7 +9,9 @@ export class SpeakifyStack extends cdk.Stack {
     super(scope, id, props)
 
     const bucket = new s3.Bucket(this, 'Bucket', {
+      blockPublicAccess: s3.BlockPublicAccess.BLOCK_ACLS,
       bucketName: 'speakify-dev',
+      publicReadAccess: true,
       removalPolicy: RemovalPolicy.DESTROY,
     })
 
