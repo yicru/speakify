@@ -40,7 +40,6 @@ export function AuthForm() {
       email: values.email,
       options: {
         emailRedirectTo: `${env.NEXT_PUBLIC_APP_URL}/auth/callback`,
-        shouldCreateUser: false,
       },
     })
 
